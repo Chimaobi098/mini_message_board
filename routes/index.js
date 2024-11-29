@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mainController = require("../controllers/mainController");
 
 const messages = [
   {
@@ -19,37 +20,12 @@ const messages = [
 
 let messageId = 2;
 
-router.get("/", (req, res) => {
-  res.render("index", { title: "Mini Messageboard", messages: messages });
-});
+router.get("/", mainController.getMessages);
 
-router.get("/new", (req, res) => {
-  //   res.send("yooooo");
-  res.render("form");
-});
+router.get("/new", mainController.newMessageGet);
 
-router.post("/new", (req, res) => {
-  messages.push({
-    id: messageId++,
-    text: req.body.message,
-    user: req.body.author,
-    added: new Date(),
-  });
-  res.redirect("/");
-});
+router.post("/new", mainController.newMessagePost);
 
-router.get("/message/:id", (req, res) => {
-  const message = messages.find((msg) => msg.id === parseInt(req.params.id));
-
-  if (message) {
-    res.render("message", { message });
-  } else {
-    res.status(404).send("Message not found");
-  }
-});
-
-// router.post("/new", (req, res) => {
-//     res.send()
-// });
+router.get("/message/:id", mainController.findMessage);
 
 module.exports = router;
