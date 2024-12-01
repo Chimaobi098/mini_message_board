@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 const indexRouter = require("./routes/index");
 // const messageRouter = require("./routes/new");
 
-// app.use("/new", messageRouter);
+// app.use("/new", messageRoutdder);
 app.use("/", indexRouter);
 
 const PORT = process.env.PORT || 3000;
